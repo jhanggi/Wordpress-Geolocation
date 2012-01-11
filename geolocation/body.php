@@ -1,10 +1,4 @@
 <?php 
-function add_geo_div() {
-	
-	//echo '<div id="map" class="geolocation-map" style="width:'.$width.'px;height:'.$height.'px;"></div>';
-	
-}
-
 function add_geo_support() {
 	global $geolocation_options, $posts;
 	
@@ -69,7 +63,7 @@ function display_location($content)  {
 // 		}
 		
 		$html .= '});</script>';
-		//$html .= '<div id="map" class="geolocation-map" style="width:'.$width.'px;height:'.$height.'px;"></div>';
+
 		switch(esc_attr(get_option('geolocation_map_position')))
 		{
 			case 'before':
