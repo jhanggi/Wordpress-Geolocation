@@ -22,8 +22,14 @@ WPGeolocation.drawMap = function(options) {
 		var marker = new google.maps.Marker({
 			position: location, 
 			map: map, 
-			title: locations[i].title
+			title: locations[i].title,
+			url: locations[i].url
 		});
+		if (locations[i].url) {
+			google.maps.event.addListener(marker, 'click', function() {
+				window.location = this.url;
+			});
+		}
 		marker.setPosition(location);
 	}
 	map.setCenter(location);
