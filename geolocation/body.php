@@ -11,7 +11,7 @@ function add_geo_support() {
 	// To do: add support for multiple Map API providers
 	switch(PROVIDER) {
 		case 'google':
-			echo add_google_maps($posts);
+			//echo add_google_maps($posts);
 			break;
 		case 'yahoo':
 			echo add_yahoo_maps($posts);
@@ -21,23 +21,6 @@ function add_geo_support() {
 			break;
 	}
 	wp_enqueue_style( 'geolocation_style', esc_url(plugins_url(PLUGIN_LOCATION.'/style.css')));
-}
-
-
-function add_google_maps($posts) {
-	default_settings();
-	global $post_count;
-	$post_count = count($posts);
-	echo '<script type="text/javascript">
-		var $j = jQuery.noConflict();
-		$j(function(){
-			
-			
-			google.maps.event.addListener(map, "click", function() {
-				window.location = "http://maps.google.com/maps?q=" + map.center.lat() + ",+" + map.center.lng();
-			});
-		});
-	</script>';
 }
 
 function geo_has_shortcode($content) {
