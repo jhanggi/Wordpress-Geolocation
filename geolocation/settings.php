@@ -12,8 +12,8 @@ function add_settings() {
 }
 
 function register_settings() {
-	register_setting( 'geolocation-settings-group', 'geolocation_map_width', 'intval' );
-	register_setting( 'geolocation-settings-group', 'geolocation_map_height', 'intval' );
+	register_setting( 'geolocation-settings-group', 'geolocation_map_width');
+	register_setting( 'geolocation-settings-group', 'geolocation_map_height');
 	register_setting( 'geolocation-settings-group', 'geolocation_default_zoom', 'intval' );
 	register_setting( 'geolocation-settings-group', 'geolocation_map_position' );
 	register_setting( 'geolocation-settings-group', 'geolocation_wp_pin');
@@ -61,8 +61,8 @@ function geolocation_settings_page() {
 	        <tr valign="top">
 	        <th scope="row">Dimensions</th>
 	        <td class="dimensions">
-	        	<strong>Width:</strong><input type="text" name="geolocation_map_width" value="<?php echo esc_attr(get_option('geolocation_map_width')); ?>" />px<br/>
-	        	<strong>Height:</strong><input type="text" name="geolocation_map_height" value="<?php echo esc_attr(get_option('geolocation_map_height')); ?>" />px
+	        	<strong>Width:</strong><input type="text" name="geolocation_map_width" value="<?php echo esc_attr(get_option('geolocation_map_width')); ?>" /><br/>
+	        	<strong>Height:</strong><input type="text" name="geolocation_map_height" value="<?php echo esc_attr(get_option('geolocation_map_height')); ?>" />
 	        </td>
         </tr>
         <tr valign="top">

@@ -26,7 +26,6 @@ License: GPL2
 */
 
 add_action('wp_head', 'add_geo_support');
-add_action('wp_footer', 'add_geo_div');
 add_action('admin_menu', 'add_settings');
 add_filter('the_content', 'display_location', 5);
 admin_init();
@@ -46,13 +45,14 @@ function activate() {
 	add_option('geolocation_wp_pin', '1');
 }
 
+add_action('wp_enqueue_scripts', 'geolocation_enqueue_scripts');
 
 function default_settings() {
 	if(get_option('geolocation_map_width') == '0')
-	update_option('geolocation_map_width', '450');
+	update_option('geolocation_map_width', '450px');
 
 	if(get_option('geolocation_map_height') == '0')
-	update_option('geolocation_map_height', '200');
+	update_option('geolocation_map_height', '200px');
 
 	if(get_option('geolocation_default_zoom') == '0')
 	update_option('geolocation_default_zoom', '16');
@@ -61,6 +61,10 @@ function default_settings() {
 	update_option('geolocation_map_position', 'after');
 }
 
+function geolocation_enqueue_scripts() {
+	wp_enqueue_script('google_maps', "http://maps.google.com/maps/api/js?sensor=false");
+	wp_enqueue_script('geolocation', plugins_url(PLUGIN_LOCATION.'/js/map.js'));
+}
 
 function geolocation_add_custom_box() {
 		if(function_exists('add_meta_box')) {
