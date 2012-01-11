@@ -1,9 +1,9 @@
 === Geolocation ===
-Contributors: frsh, mdawaffe, automattic
+Contributors: frsh, mdawaffe, automattic, jhanggi
 Tags: geolocation, maps, geotag
 Requires at least: 2.9.2
 Tested up to: 3.2
-Stable tag: 0.1.1
+Stable tag: 0.2.0
 
 Display a map showing your post's geo location.  Geotag your post from the Edit Post screen or with any geo-enabled WordPress mobile application.
 
@@ -12,6 +12,8 @@ Display a map showing your post's geo location.  Geotag your post from the Edit 
 The Geolocation plugin allows you to geotag your posts using the Edit Post page or with any geo-enabled WordPress mobile application such as WordPress for iPhone, WordPress for Android, or WordPress for BlackBerry.
 
 Visitors see a short description of the address either before, after, or at a custom location within the post. Hovering over the address reveals a map that displays the post's exact location.
+
+Forked from Chris Boyd's Geolocation plugin http://plugins.svn.wordpress.org/geolocation/
 
 == Installation ==
 
@@ -26,8 +28,10 @@ Visitors see a short description of the address either before, after, or at a cu
 
 == Changelog ==
 
-= 0.1 =
-* Initial release.
+= 0.2.0 =
+* Supports multiple maps (from multiple posts) on a single page
+* Display the map always, as opposed to on hover
+* Refactoring of code into multiple files
 
 = 0.1.1 =
 * Added ability to turn geolocation on and off for individual posts.
@@ -35,3 +39,6 @@ Visitors see a short description of the address either before, after, or at a cu
 * Removed display of latitude and longitude on mouse hover.
 * Map link color now defaults to your theme.
 * Clicking map link now (properly) does nothing.
+
+= 0.1 =
+* Initial release.
