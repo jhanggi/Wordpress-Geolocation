@@ -20,7 +20,7 @@ function add_geo_support() {
 			echo add_bing_maps($posts);
 			break;
 	}
-	echo '<link type="text/css" rel="stylesheet" href="'.esc_url(plugins_url(PLUGIN_LOCATION . '/style.css')).'" />';
+	wp_enqueue_style( 'geolocation_style', esc_url(plugins_url(PLUGIN_LOCATION.'/style.css')));
 }
 
 
@@ -29,9 +29,9 @@ function add_google_maps($posts) {
 	$zoom = (int) get_option('geolocation_default_zoom');
 	global $post_count;
 	$post_count = count($posts);
+	wp_enqueue_script('google_maps', "http://maps.google.com/maps/api/js?sensor=false");
 
-	echo '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<script type="text/javascript">
+	echo '<script type="text/javascript">
 		var $j = jQuery.noConflict();
 		$j(function(){
 			var center = new google.maps.LatLng(0.0, 0.0);
