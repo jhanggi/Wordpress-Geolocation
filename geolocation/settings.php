@@ -1,4 +1,24 @@
 <?php
+
+
+function add_settings() {
+	if ( is_admin() ){
+		// admin actions
+		add_options_page('Geolocation Plugin Settings', 'Geolocation', 'administrator', 'geolocation.php', 'geolocation_settings_page', __FILE__);
+		add_action( 'admin_init', 'register_settings' );
+	} else {
+		// non-admin enqueues, actions, and filters
+	}
+}
+
+function register_settings() {
+	register_setting( 'geolocation-settings-group', 'geolocation_map_width', 'intval' );
+	register_setting( 'geolocation-settings-group', 'geolocation_map_height', 'intval' );
+	register_setting( 'geolocation-settings-group', 'geolocation_default_zoom', 'intval' );
+	register_setting( 'geolocation-settings-group', 'geolocation_map_position' );
+	register_setting( 'geolocation-settings-group', 'geolocation_wp_pin');
+}
+
 function geolocation_settings_page() {
 	default_settings();
 	$zoomImage = get_option('geolocation_default_zoom');

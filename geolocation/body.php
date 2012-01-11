@@ -20,7 +20,7 @@ function add_geo_support() {
 			echo add_bing_maps($posts);
 			break;
 	}
-	echo '<link type="text/css" rel="stylesheet" href="'.esc_url(plugins_url('style.css', __FILE__)).'" />';
+	echo '<link type="text/css" rel="stylesheet" href="'.esc_url(plugins_url(PLUGIN_LOCATION . '/style.css')).'" />';
 }
 
 
@@ -41,8 +41,8 @@ function add_google_maps($posts) {
 		      mapTypeId: google.maps.MapTypeId.ROADMAP
 		    };
 		    var map = new google.maps.Map(document.getElementById("map"), myOptions);
-		    var image = "'.esc_js(esc_url(plugins_url('img/wp_pin.png', __FILE__ ))).'";
-		    var shadow = new google.maps.MarkerImage("'.plugins_url('img/wp_pin_shadow.png', __FILE__ ).'",
+		    var image = "'.esc_js(esc_url(plugins_url(PLUGIN_LOCATION . '/img/wp_pin.png'))).'";
+		    var shadow = new google.maps.MarkerImage("'.plugins_url(PLUGIN_LOCATION .'/img/wp_pin_shadow.png').'",
 		    	new google.maps.Size(39, 23),
 				new google.maps.Point(0, 0),
 				new google.maps.Point(12, 25));

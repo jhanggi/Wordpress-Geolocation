@@ -35,6 +35,7 @@ wp_enqueue_script("jquery");
 
 define('PROVIDER', 'google');
 define('SHORTCODE', '[geolocation]');
+define('PLUGIN_LOCATION', 'geolocation');
 
 function activate() {
 	register_settings();
@@ -44,6 +45,22 @@ function activate() {
 	add_option('geolocation_map_position', 'after');
 	add_option('geolocation_wp_pin', '1');
 }
+
+
+function default_settings() {
+	if(get_option('geolocation_map_width') == '0')
+	update_option('geolocation_map_width', '450');
+
+	if(get_option('geolocation_map_height') == '0')
+	update_option('geolocation_map_height', '200');
+
+	if(get_option('geolocation_default_zoom') == '0')
+	update_option('geolocation_default_zoom', '16');
+
+	if(get_option('geolocation_map_position') == '0')
+	update_option('geolocation_map_position', 'after');
+}
+
 
 function geolocation_add_custom_box() {
 		if(function_exists('add_meta_box')) {
@@ -57,87 +74,14 @@ function geolocation_add_custom_box() {
 require_once(dirname(__FILE__).'/geolocation/admin.php');
 require_once(dirname(__FILE__).'/geolocation/body.php');
 require_once(dirname(__FILE__).'/geolocation/settings.php');
+require_once(dirname(__FILE__).'/geolocation/lib.php');
+require_once(dirname(__FILE__).'/geolocation/util.php');
+
 function admin_init() {
 	add_action('admin_head-post-new.php', 'admin_head');
 	add_action('admin_head-post.php', 'admin_head');
 	add_action('admin_menu', 'geolocation_add_custom_box');
 	add_action('save_post', 'geolocation_save_postdata');
-}
-
-
-function reverse_geocode($latitude, $longitude) {
-	$url = "http://maps.google.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&sensor=false";
-	$result = wp_remote_get($url);
-	$json = json_decode($result['body']);
-	foreach ($json->results as $result)
-	{
-		foreach($result->address_components as $addressPart) {
-			if((in_array('locality', $addressPart->types)) && (in_array('political', $addressPart->types)))
-	    		$city = $addressPart->long_name;
-	    	else if((in_array('administrative_area_level_1', $addressPart->types)) && (in_array('political', $addressPart->types)))
-	    		$state = $addressPart->long_name;
-	    	else if((in_array('country', $addressPart->types)) && (in_array('political', $addressPart->types)))
-	    		$country = $addressPart->long_name;
-		}
-	}
-	
-	if(($city != '') && ($state != '') && ($country != ''))
-		$address = $city.', '.$state.', '.$country;
-	else if(($city != '') && ($state != ''))
-		$address = $city.', '.$state;
-	else if(($state != '') && ($country != ''))
-		$address = $state.', '.$country;
-	else if($country != '')
-		$address = $country;
-		
-	return $address;
-}
-
-function clean_coordinate($coordinate) {
-	$pattern = '/^(\-)?(\d{1,3})\.(\d{1,15})/';
-	preg_match($pattern, $coordinate, $matches);
-	return $matches[0];
-}
-
-function add_settings() {
-	if ( is_admin() ){ // admin actions
-		add_options_page('Geolocation Plugin Settings', 'Geolocation', 'administrator', 'geolocation.php', 'geolocation_settings_page', __FILE__);
-  		add_action( 'admin_init', 'register_settings' );
-	} else {
-	  // non-admin enqueues, actions, and filters
-	}
-}
-
-function register_settings() {
-  register_setting( 'geolocation-settings-group', 'geolocation_map_width', 'intval' );
-  register_setting( 'geolocation-settings-group', 'geolocation_map_height', 'intval' );
-  register_setting( 'geolocation-settings-group', 'geolocation_default_zoom', 'intval' );
-  register_setting( 'geolocation-settings-group', 'geolocation_map_position' );
-  register_setting( 'geolocation-settings-group', 'geolocation_wp_pin');
-}
-
-function is_checked($field) {
-	if (get_option($field))
- 		echo ' checked="checked" ';
-}
-
-function is_value($field, $value) {
-	if (get_option($field) == $value) 
- 		echo ' checked="checked" ';
-}
-
-function default_settings() {
-	if(get_option('geolocation_map_width') == '0')
-		update_option('geolocation_map_width', '450');
-		
-	if(get_option('geolocation_map_height') == '0')
-		update_option('geolocation_map_height', '200');
-		
-	if(get_option('geolocation_default_zoom') == '0')
-		update_option('geolocation_default_zoom', '16');
-		
-	if(get_option('geolocation_map_position') == '0')
-		update_option('geolocation_map_position', 'after');
 }
 
 ?>
