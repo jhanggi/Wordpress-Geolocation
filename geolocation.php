@@ -80,6 +80,7 @@ require_once(dirname(__FILE__).'/geolocation/body.php');
 require_once(dirname(__FILE__).'/geolocation/settings.php');
 require_once(dirname(__FILE__).'/geolocation/lib.php');
 require_once(dirname(__FILE__).'/geolocation/util.php');
+require_once(dirname(__FILE__).'/geolocation/bigmap.php');
 
 function admin_init() {
 	add_action('admin_head-post-new.php', 'admin_head');
