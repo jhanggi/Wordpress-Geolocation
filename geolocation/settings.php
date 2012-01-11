@@ -28,7 +28,7 @@ function geolocation_settings_page() {
 		$zoomImage = $zoomImage.'.png';
 	?>
 	<style type="text/css">
-		#zoom_level_sample { background: url('<?php echo esc_url(plugins_url('img/zoom/'.$zoomImage, __FILE__)); ?>'); width:390px; height:190px; border: solid 1px #999; }
+		#zoom_level_sample { background: url('<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/'.$zoomImage)); ?>'); width:390px; height:190px; border: solid 1px #999; }
 		#preload { display: none; }
 		.dimensions strong { width: 50px; float: left; }
 		.dimensions input { width: 50px; margin-right: 5px; }
@@ -38,7 +38,7 @@ function geolocation_settings_page() {
 	<script type="text/javascript">
 		var file;
 		var zoomlevel = <?php echo (int) esc_attr(get_option('geolocation_default_zoom')); ?>;
-		var path = '<?php echo esc_js(plugins_url('img/zoom/', __FILE__)); ?>';
+		var path = '<?php echo esc_js(plugins_url(PLUGIN_LOCATION.'/img/zoom/')); ?>';
 		function swap_zoom_sample(id) {
 			zoomlevel = document.getElementById(id).value;
 			pin_click();
@@ -103,19 +103,19 @@ function geolocation_settings_page() {
 	<input type="hidden" name="page_options" value="geolocation_map_width,geolocation_map_height,geolocation_default_zoom,geolocation_map_position,geolocation_wp_pin" />
 </form>
 	<div id="preload">
-		<img src="<?php echo esc_url(plugins_url('img/zoom/1.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/3.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/6.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/9.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/16.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/18.png', __FILE__)); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/1.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/3.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/6.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/9.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/16.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/18.png')); ?>"/>
 		
-		<img src="<?php echo esc_url(plugins_url('img/zoom/wp_1.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/wp_3.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/wp_6.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/wp_9.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/wp_16.png', __FILE__)); ?>"/>
-		<img src="<?php echo esc_url(plugins_url('img/zoom/wp_18.png', __FILE__)); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/wp_1.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/wp_3.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/wp_6.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/wp_9.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/wp_16.png')); ?>"/>
+		<img src="<?php echo esc_url(plugins_url(PLUGIN_LOCATION.'/img/zoom/wp_18.png')); ?>"/>
 	</div>
 	<?php
 }
