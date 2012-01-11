@@ -68,11 +68,11 @@ function display_location($content)  {
 		{
 			case 'before':
 				$content = str_replace(SHORTCODE, '', $content);
-				$content = $html.'<br/><br/>'.$content;
+				$content = $html.$content;
 				break;
 			case 'after':
 				$content = str_replace(SHORTCODE, '', $content);
-				$content = $content.'<br/><br/>'.$html;
+				$content = $content.$html;
 				break;
 			case 'shortcode':
 				$content = str_replace(SHORTCODE, $html, $content);

@@ -11,7 +11,7 @@ WPGeolocation.drawMap = function(options) {
 	
 	options = jQuery.extend({}, WPGeolocation.defaultOptions, options);
 	
-	document.write("<div id=\"geolocation-" + WPGeolocation.mapNumber + "\" style=\"width: " + options.width + "; height: " + options.height + ";\"></div>");
+	document.write("<div id=\"geolocation-" + WPGeolocation.mapNumber + "\" class=\"geolocation-map\" style=\"width: " + options.width + "; height: " + options.height + ";\"></div>");
 	var map = new google.maps.Map(document.getElementById("geolocation-" + WPGeolocation.mapNumber), options);
 	WPGeolocation.mapNumber++;
 	var marker = new google.maps.Marker({
