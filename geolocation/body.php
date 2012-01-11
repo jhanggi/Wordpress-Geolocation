@@ -53,8 +53,7 @@ function display_location($content)  {
 		$html = '<script>WPGeolocation.drawMap({
 			width: "' . $width . '",
 			height: "' . $height . '",
-			latitude: ' . $latitude . ',
-			longitude: ' . $longitude . ',
+			location: { latitude: ' . $latitude . ', longitude: ' . $longitude . ', title: "'. $address . '"},
 			zoom : ' . 	(int) get_option('geolocation_default_zoom');
 // 		if(get_option('geolocation_wp_pin')) {
 // 			$html .= ',
