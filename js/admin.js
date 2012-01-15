@@ -8,15 +8,15 @@ WPGeolocation.loadAdmin = function(options) {
 	var public = options.public; 
 	var on = options.enabled;
 
-	if (public == '0')
+	if (public == '1')
 		$j("#geolocation-public").attr('checked', false);
 	else
 		$j("#geolocation-public").attr('checked', true);
 
-	if (on == '0')
-		disableGeo();
-	else
+	if (on == '1')
 		enableGeo();
+	else
+		disableGeo();
 
 	if ((postLatitude != '') && (postLongitude != '')) {
 		center = new google.maps.LatLng(postLatitude, postLongitude);
