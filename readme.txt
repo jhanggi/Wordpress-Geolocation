@@ -23,6 +23,7 @@ Forked from Chris Boyd's Geolocation plugin http://plugins.svn.wordpress.org/geo
 
 For geotagging categories and tags, make sure you have installed the Taxonomy Metadata plugin
 http://wordpress.org/extend/plugins/taxonomy-metadata/
+or another plugin that implements get_term_meta(), update_term_meta(), etc.
 
 == Screenshots ==
 
