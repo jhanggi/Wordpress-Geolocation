@@ -17,7 +17,8 @@ function geolocation_map_for_posts($posts, $options) {
 	$default_options = array(
 		'width' => '400px',
 		'height' => '400px',
-		'location' => $locations
+		'location' => $locations,
+		'zoom' => 6
 	);
 	$options = array_merge($default_options, $options);
 	echo '<script>WPGeolocation.drawMap('. json_encode($options) . ');</script>';
