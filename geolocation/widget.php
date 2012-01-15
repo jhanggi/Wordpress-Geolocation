@@ -20,7 +20,18 @@ class WP_Geolocation_Widget extends WP_Simple_Widget {
 	
 	function render($instance) {
 		$zoom = $instance['zoom'] ? $instance['zoom'] : 1;
-		geolocation_map_all(array('height' => $instance['height'], 'width' => '100%', 'zoom' => $zoom));
+		
+		global $tag, $cat;
+		error_log("tags" . $tag);
+		error_log('category'.$cat);
+		$options = array('height' => $instance['height'], 'width' => '100%', 'zoom' => $zoom);
+		if ($tag) {
+			geolocation_map_term('tag', $tag, $options);
+		} elseif ($cat) {
+			geolocation_map_term('category', $cat, $options);
+		} else {
+			geolocation_map_all($options);
+		}
 	}
 }
 

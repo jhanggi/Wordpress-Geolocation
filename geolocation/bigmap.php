@@ -4,6 +4,14 @@ function geolocation_map_all($options) {
 	$args = array('numberposts' => 99999, 'meta_key' => 'geo_enabled', 'meta_value' => true, 'order' => 'ASC');
 	geolocation_map_for_posts(get_posts($args), $options);
 }
+
+function geolocation_map_term($term_type, $term_id, $options) {
+	error_log('doing search for ' . $term_type . 'id='.$term_id);
+	$args = array('numberposts' => 99999, 'meta_key' => 'geo_enabled', 'meta_value' => true, 'order' => 'ASC',
+		$term_type => $term_id
+	);
+	geolocation_map_for_posts(get_posts($args), $options);
+}
 function geolocation_map_for_posts($posts, $options) {
 	$locations = array();
 	foreach ($posts as $post) {
