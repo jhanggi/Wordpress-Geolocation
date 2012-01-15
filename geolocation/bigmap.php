@@ -1,7 +1,7 @@
 <?php 
 
 function geolocation_map_all($options) {
-	$args = array('numberposts' => 99999, 'meta_key' => 'geo_enabled', 'meta_value' => true);
+	$args = array('numberposts' => 99999, 'meta_key' => 'geo_enabled', 'meta_value' => true, 'order' => 'ASC');
 	geolocation_map_for_posts(get_posts($args), $options);
 }
 function geolocation_map_for_posts($posts, $options) {
