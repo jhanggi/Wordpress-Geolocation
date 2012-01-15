@@ -28,7 +28,7 @@ License: GPL2
 add_action('wp_head', 'add_geo_support');
 add_action('admin_menu', 'add_settings');
 add_filter('the_content', 'display_location', 5);
-admin_init();
+
 register_activation_hook(__FILE__, 'activate');
 wp_enqueue_script("jquery");
 
@@ -61,9 +61,10 @@ function default_settings() {
 	update_option('geolocation_map_position', 'after');
 }
 
-function geolocation_enqueue_scripts() {
+function geolocation_enqueue_scripts($load_admin = false) {
 	wp_enqueue_script('google_maps', "http://maps.google.com/maps/api/js?sensor=false");
 	wp_enqueue_script('geolocation', plugins_url(PLUGIN_LOCATION.'/js/map.js'));
+	if ($load_admin) wp_enqueue_script('geolocation_admin', plugins_url(PLUGIN_LOCATION.'/js/admin.js'));
 }
 
 function geolocation_add_custom_box() {
@@ -82,12 +83,5 @@ require_once(dirname(__FILE__).'/geolocation/lib.php');
 require_once(dirname(__FILE__).'/geolocation/util.php');
 require_once(dirname(__FILE__).'/geolocation/bigmap.php');
 require_once(dirname(__FILE__).'/geolocation/widget.php');
-
-function admin_init() {
-	add_action('admin_head-post-new.php', 'admin_head');
-	add_action('admin_head-post.php', 'admin_head');
-	add_action('admin_menu', 'geolocation_add_custom_box');
-	add_action('save_post', 'geolocation_save_postdata');
-}
 
 ?>
