@@ -5,6 +5,7 @@ add_action('admin_head-post.php', 'admin_head');
 add_action('admin_menu', 'geolocation_add_custom_box');
 add_action('save_post', 'geolocation_save_postdata');
 
+require_once('admin/term_edit.php');
 
 function geolocation_inner_custom_box() {
 	echo '<input type="hidden" id="geolocation_nonce" name="geolocation_nonce" value="' . 
@@ -72,10 +73,17 @@ function geolocation_save_postdata($post_id) {
 	return $post_id;
 }
 
-function admin_head() {
-	global $post;
-	$post_id = $post->ID;
-	$post_type = $post->post_type;
+function admin_head($type) {
+	if ($type == 'tag') {
+		global $tag;
+		$post_id = $tag->term_id;
+		$meta_function = 'get_term_meta';
+	} else {
+		global $post;
+		$post_id = $post->ID;
+		$meta_function = 'get_post_meta';
+	}
+	
 	$zoom = (int) get_option('geolocation_default_zoom');
 	geolocation_enqueue_scripts(true);
 	wp_enqueue_script('google_jsapi', "http://www.google.com/jsapi");
@@ -83,10 +91,10 @@ function admin_head() {
 		<script type="text/javascript">
 		jQuery(function() {
 		WPGeolocation.loadAdmin({
-			latitude: '<?php echo esc_js(get_post_meta($post_id, 'geo_latitude', true)); ?>',
-			longitude: '<?php echo esc_js(get_post_meta($post_id, 'geo_longitude', true)); ?>',
-			public: '<?php echo get_post_meta($post_id, 'geo_public', true); ?>',
-			enabled: '<?php echo get_post_meta($post_id, 'geo_enabled', true); ?>'
+			latitude: '<?php echo esc_js($meta_function($post_id, 'geo_latitude', true)); ?>',
+			longitude: '<?php echo esc_js($meta_function($post_id, 'geo_longitude', true)); ?>',
+			public: '<?php echo $meta_function($post_id, 'geo_public', true); ?>',
+			enabled: '<?php echo $meta_function($post_id, 'geo_enabled', true); ?>'
 		});
 		});
 		</script>

@@ -21,6 +21,9 @@ Forked from Chris Boyd's Geolocation plugin http://plugins.svn.wordpress.org/geo
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Modify the display settings as needed on the Settings > Geolocation page.
 
+For geotagging categories and tags, make sure you have installed the Taxonomy Metadata plugin
+http://wordpress.org/extend/plugins/taxonomy-metadata/
+
 == Screenshots ==
 
 1. screenshot-1.png
