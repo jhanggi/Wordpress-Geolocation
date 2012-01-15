@@ -38,8 +38,8 @@ define('PLUGIN_LOCATION', 'geolocation');
 
 function activate() {
 	register_settings();
-	add_option('geolocation_map_width', '350');
-	add_option('geolocation_map_height', '150');
+	add_option('geolocation_map_width', '100%');
+	add_option('geolocation_map_height', '150px');
 	add_option('geolocation_default_zoom', '16');
 	add_option('geolocation_map_position', 'after');
 	add_option('geolocation_wp_pin', '1');
