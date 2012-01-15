@@ -18,14 +18,6 @@ class WP_Geolocation_Widget extends WP_Simple_Widget {
 		parent::WP_Simple_Widget($widget_options, $my_options);
 	}
 	
-	function getOptions() {
-		return array(
-			'title',
-			'zoom',
-			'height'
-		);
-	}
-	
 	function render($instance) {
 		$zoom = $instance['zoom'] ? $instance['zoom'] : 1;
 		geolocation_map_all(array('height' => $instance['height'], 'width' => '100%', 'zoom' => $zoom));
