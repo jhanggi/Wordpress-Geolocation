@@ -15,7 +15,7 @@ WPGeolocation.drawMap = function(options) {
 	document.write("<div id=\"geolocation-" + WPGeolocation.mapNumber + "\" class=\"geolocation-map\" style=\"width: " + options.width + "; height: " + options.height + ";\"></div>");
 	var map = new google.maps.Map(document.getElementById("geolocation-" + WPGeolocation.mapNumber), options);
 	WPGeolocation.mapNumber++;
-	map.setZoom(options.zoom);
+	var bounds = new google.maps.LatLngBounds ();
 	var locations = jQuery.isArray(options.location) ? options.location : [options.location];
 	for (var i = 0; i < locations.length; i++) {
 		var location = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
@@ -31,7 +31,14 @@ WPGeolocation.drawMap = function(options) {
 			});
 		}
 		marker.setPosition(location);
+		bounds.extend(marker.getPosition());
 	}
-	map.setCenter(location);
+	
+	if (locations.length > 1) {
+		map.fitBounds (bounds);
+	} else {
+		map.setZoom(options.zoom);
+		map.setCenter(location);
+	}
 	
 }
