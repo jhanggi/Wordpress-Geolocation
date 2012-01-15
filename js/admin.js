@@ -3,16 +3,10 @@ var $j = jQuery.noConflict();
 WPGeolocation.loadAdmin = function(options) {
 	var hasLocation = false;
 	var center = new google.maps.LatLng(0.0, 0.0);
-	var postLatitude = options.latitude; // '<?php echo
-											// esc_js(get_post_meta($post_id,
-											// 'geo_latitude', true)); ?>';
-	var postLongitude = options.longitude; // '<?php echo
-											// esc_js(get_post_meta($post_id,
-											// 'geo_longitude', true)); ?>';
-	var public = options.public; // '<?php echo get_post_meta($post_id,
-									// 'geo_public', true); ?>';
-	var on = options.enabled;// '<?php echo get_post_meta($post_id,
-								// 'geo_enabled', true); ?>';
+	var postLatitude = options.latitude; 
+	var postLongitude = options.longitude;
+	var public = options.public; 
+	var on = options.enabled;
 
 	if (public == '0')
 		$j("#geolocation-public").attr('checked', false);
