@@ -1,11 +1,16 @@
 <?php 
-$types = array('category', 'post_tag');
-foreach ($types as $type) {
-	add_action($type . '_add_form_fields', 'geolocation_taxonomy_metabox_add');
-	add_action($type. '_edit_form_fields', 'geolocation_taxonomy_metabox_add');
-	add_action('edited_' . $type, 'geolocation_taxonomy_save_fields');
-	add_action('created_' . $type, 'geolocation_taxonomy_save_fields');
+function geolocation_add_term_admin_functions() {
+	if (function_exists('update_term_meta')) {
+		$types = array('category', 'post_tag');
+		foreach ($types as $type) {
+			add_action($type . '_add_form_fields', 'geolocation_taxonomy_metabox_add');
+			add_action($type. '_edit_form_fields', 'geolocation_taxonomy_metabox_add');
+			add_action('edited_' . $type, 'geolocation_taxonomy_save_fields');
+			add_action('created_' . $type, 'geolocation_taxonomy_save_fields');
+		}
+	}
 }
+add_action('admin_init', 'geolocation_add_term_admin_functions');
 
 function geolocation_taxonomy_metabox_add() {
 	admin_head('tag');
