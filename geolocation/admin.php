@@ -9,7 +9,7 @@ require_once('admin/term_edit.php');
 
 function geolocation_inner_custom_box() {
 	echo '<input type="hidden" id="geolocation_nonce" name="geolocation_nonce" value="' . 
-	wp_create_nonce(plugin_basename(__FILE__) ) . '" />';
+	wp_create_nonce('geolocation_post_meta' ) . '" />';
 	include 'admin/inner_box.php';
 }
 
@@ -28,51 +28,45 @@ function geolocation_old_custom_box() {
 }
 
 function geolocation_save_postdata($post_id) {
-	// Check authorization, permissions, autosave, etc
-	if (!wp_verify_nonce($_POST['geolocation_nonce'], plugin_basename(__FILE__)))
-	return $post_id;
+	return geolocation_update_meta('post', $post_id, 'geolocation_post_meta'); 
+}
 
+function geolocation_update_meta($type, $id, $nonce_context) {
+	if (!wp_verify_nonce($_POST['geolocation_nonce'], $nonce_context))
+		return $post_id;
+	
+	$update_meta = 'update_' . $type . "_meta";
 	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-	return $post_id;
-
-	if('page' == $_POST['post_type'] ) {
-		if(!current_user_can('edit_page', $post_id))
-		return $post_id;
-	} else {
-		if(!current_user_can('edit_post', $post_id))
-		return $post_id;
-	}
-
+		return $id;
+		
 	$latitude = clean_coordinate($_POST['geolocation-latitude']);
 	$longitude = clean_coordinate($_POST['geolocation-longitude']);
 	$address = reverse_geocode($latitude, $longitude);
 	$public = $_POST['geolocation-public'];
 	$on = $_POST['geolocation-on'];
-
+	
 	if((clean_coordinate($latitude) != '') && (clean_coordinate($longitude)) != '') {
-		update_post_meta($post_id, 'geo_latitude', $latitude);
-		update_post_meta($post_id, 'geo_longitude', $longitude);
-		 
+		$update_meta($id, 'geo_latitude', $latitude);
+		$update_meta($id, 'geo_longitude', $longitude);
+			
 		if(esc_html($address) != '')
-		update_post_meta($post_id, 'geo_address', $address);
-
+		$update_meta($id, 'geo_address', $address);
+	
 		if($on) {
-			update_post_meta($post_id, 'geo_enabled', 1);
-
-			if($public)
-			update_post_meta($post_id, 'geo_public', 1);
-			else
-			update_post_meta($post_id, 'geo_public', 0);
-		}
-		else {
-			update_post_meta($post_id, 'geo_enabled', 0);
-			update_post_meta($post_id, 'geo_public', 1);
+			$update_meta($id, 'geo_enabled', 1);
+	
+			if($public) {
+				$update_meta($id, 'geo_public', 1);
+			} else {
+				$update_meta($id, 'geo_public', 0);
+			}
+		} else {
+			$update_meta($id, 'geo_enabled', 0);
+			$update_meta($id, 'geo_public', 1);
 		}
 	}
-
-	return $post_id;
+	return $id;
 }
-
 function admin_head($type) {
 	if ($type == 'tag') {
 		global $tag;

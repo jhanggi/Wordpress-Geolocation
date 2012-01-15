@@ -9,36 +9,13 @@ foreach ($types as $type) {
 
 function category_metabox_add() {
 	admin_head('tag');
+	$nonce = wp_create_nonce('geolocation_term_meta');
+	echo '<input type="hidden" id="geolocation_nonce" name="geolocation_nonce" value="' .
+		$nonce . '" />';
 	include 'inner_box.php';
 }
 
 function category_save_fields($term_id) {
-	
-	$latitude = clean_coordinate($_POST['geolocation-latitude']);
-	$longitude = clean_coordinate($_POST['geolocation-longitude']);
-	$address = reverse_geocode($latitude, $longitude);
-	$public = $_POST['geolocation-public'];
-	$on = $_POST['geolocation-on'];
-	
-	if((clean_coordinate($latitude) != '') && (clean_coordinate($longitude)) != '') {
-		update_term_meta($term_id, 'geo_latitude', $latitude);
-		update_term_meta($term_id, 'geo_longitude', $longitude);
-			
-		if(esc_html($address) != '')
-		update_term_meta($term_id, 'geo_address', $address);
-		
-		if($on) {
-			update_post_meta($term_id, 'geo_enabled', 1);
-		
-			if($public) {
-				update_post_meta($post_id, 'geo_public', 1);
-			} else {
-				update_post_meta($post_id, 'geo_public', 0);
-			}
-		} else {
-			update_post_meta($post_id, 'geo_enabled', 0);
-			update_post_meta($post_id, 'geo_public', 1);
-		}
-	}
+	return geolocation_update_meta('term', $term_id, 'geolocation_term_meta');
 }
 ?>
