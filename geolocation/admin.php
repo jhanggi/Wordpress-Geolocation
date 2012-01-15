@@ -2,25 +2,7 @@
 function geolocation_inner_custom_box() {
 	echo '<input type="hidden" id="geolocation_nonce" name="geolocation_nonce" value="' . 
 	wp_create_nonce(plugin_basename(__FILE__) ) . '" />';
-	echo '
-		<label class="screen-reader-text" for="geolocation-address">Geolocation</label>
-		<div class="taghint">Enter your address</div>
-		<input type="text" id="geolocation-address" name="geolocation-address" class="newtag form-input-tip" size="25" autocomplete="off" value="" />
-		<input id="geolocation-load" type="button" class="button geolocationadd" value="Load" tabindex="3" />
-		<input type="hidden" id="geolocation-latitude" name="geolocation-latitude" />
-		<input type="hidden" id="geolocation-longitude" name="geolocation-longitude" />
-		<div id="geolocation-map" style="border:solid 1px #c6c6c6;width:265px;height:200px;margin-top:5px;"></div>
-		<div style="margin:5px 0 0 0;">
-			<input id="geolocation-public" name="geolocation-public" type="checkbox" value="1" />
-			<label for="geolocation-public">Public</label>
-			<div style="float:right">
-				<input id="geolocation-enabled" name="geolocation-on" type="radio" value="1" />
-				<label for="geolocation-enabled">On</label>
-				<input id="geolocation-disabled" name="geolocation-on" type="radio" value="0" />
-				<label for="geolocation-disabled">Off</label>
-			</div>
-		</div>
-	';
+	include 'admin/inner_box.php';
 }
 
 /* Prints the edit form for pre-WordPress 2.5 post/page */
@@ -88,9 +70,9 @@ function admin_head() {
 	$post_id = $post->ID;
 	$post_type = $post->post_type;
 	$zoom = (int) get_option('geolocation_default_zoom');
-	?>
-		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	geolocation_enqueue_scripts();
+	wp_enqueue_script('google_jsapi', "http://www.google.com/jsapi");
+	?>	
 		<script type="text/javascript">
 		 	var $j = jQuery.noConflict();
 			$j(function() {
