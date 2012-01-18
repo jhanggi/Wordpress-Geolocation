@@ -1,6 +1,7 @@
 <?php 
 
-add_action('admin_head', 'admin_head');
+add_action('admin_head-post-new.php', 'admin_head');
+add_action('admin_head-post.php', 'admin_head');
 add_action('admin_menu', 'geolocation_add_custom_box');
 add_action('save_post', 'geolocation_save_postdata');
 

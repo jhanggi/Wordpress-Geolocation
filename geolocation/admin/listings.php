@@ -2,6 +2,7 @@
 
 add_action( 'init', 'geolocation_add_custom_columns');
 function geolocation_add_custom_columns() {
+	geolocation_enqueue_styles();
 	add_filter('manage_posts_columns', 'geolocation_admin_columns_header');
 	add_filter('manage_posts_custom_column', 'geolocation_admin_posts_columns', 10, 3);
 	
