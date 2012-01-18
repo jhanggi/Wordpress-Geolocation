@@ -35,7 +35,6 @@ function geolocation_map_for_terms($terms, $options = array()) {
 			$loc['longitude'] = clean_coordinate(get_term_meta($term->term_id, 'geo_longitude', true));
 			$loc['title'] = get_term_meta($term->term_id, 'geo_address', true);
 			$loc['url'] = get_term_link($term);
-			error_log("putting url:" . $loc['url']);
 			array_push($locations, $loc);
 		}
 	}
