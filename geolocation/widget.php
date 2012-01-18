@@ -18,6 +18,18 @@ class WP_Geolocation_Widget extends WP_Simple_Widget {
 		parent::WP_Simple_Widget($widget_options, $my_options);
 	}
 	
+	function render_title($instance) {
+		global $tag, $cat;
+		if ($tag) {
+			return get_term_by('slug', $tag, 'post_tag')->name;
+		} elseif ($cat) {
+			$category = get_term($cat, 'category');
+			return $category->name;
+		} else {
+			return $instance['title'];
+		}
+	}
+	
 	function render($instance) {
 		$zoom = $instance['zoom'] ? $instance['zoom'] : 1;
 		
@@ -30,7 +42,8 @@ class WP_Geolocation_Widget extends WP_Simple_Widget {
 		} elseif ($cat) {
 			geolocation_map_term('category', $cat, $options);
 		} else {
-			geolocation_map_all($options);
+			geolocation_map_all_terms('post_tag', $options);
+			//geolocation_map_all_terms('category', $options);
 		}
 	}
 }

@@ -16,9 +16,12 @@ abstract class WP_Simple_Widget extends WP_Widget {
 	
 	abstract function render($instance);
 	
+	function render_title($instance) {
+		return $instance['title'];
+	}
 	
 
-	function form($instance) {
+	final function form($instance) {
 		foreach ($this->_options as $option => $options) {
 			?>
 			<p>
@@ -37,7 +40,7 @@ abstract class WP_Simple_Widget extends WP_Widget {
 		}
 	}
 
-	function update($new_instance, $old_instance) {
+	final function update($new_instance, $old_instance) {
 		$instance = $old_instance;
 		foreach ($this->_options as $option => $options) {
 			$instance[$option] = $options['strip'] ? strip_tags($new_instance[$option]) : $new_instance[$option];
@@ -46,9 +49,11 @@ abstract class WP_Simple_Widget extends WP_Widget {
 		return $instance;
 	}
 
-	function widget($args, $instance) {
+	final function widget($args, $instance) {
 		extract( $args );
-		$title = apply_filters( 'widget_title', $instance['title'] );
+		$title = $this->render_title($instance);
+		
+		$title = apply_filters( 'widget_title', $this->render_title($instance) );
 		echo $before_widget;
 		if ( $title ) echo $before_title . $title . $after_title;
 
