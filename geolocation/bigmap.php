@@ -1,10 +1,19 @@
 <?php 
 
-function geolocation_map_all($options) {
+function geolocation_map_all_posts($options = array()) {
 	$args = array('numberposts' => 99999, 'meta_key' => 'geo_enabled', 'meta_value' => true, 'order' => 'ASC');
 	geolocation_map_for_posts(get_posts($args), $options);
 }
 
+//if (function_exists('get_term_meta')) {
+function geolocation_map_all_tags($options = array()) {
+	geolocation_map_all_terms('post_tag', $options);
+}
+
+function geolocation_map_all_categories($options = array()) {
+	geolocation_map_all_terms('category', $options);
+}
+//}
 function geolocation_map_term($term_type, $term_id, $options) {
 	$args = array('numberposts' => 99999, 'meta_key' => 'geo_enabled', 'meta_value' => true, 'order' => 'ASC',
 		$term_type => $term_id
@@ -12,12 +21,12 @@ function geolocation_map_term($term_type, $term_id, $options) {
 	geolocation_map_for_posts(get_posts($args), $options);
 }
 
-function geolocation_map_all_terms($term_type, $options) {
+function geolocation_map_all_terms($term_type, $options = array()) {
 	$terms = get_terms($term_type);
 	geolocation_map_for_terms($terms, $options);
 }
 
-function geolocation_map_for_terms($terms, $options) {
+function geolocation_map_for_terms($terms, $options = array()) {
 	$locations = array();
 	foreach ($terms as $term) {
 		$loc = array();

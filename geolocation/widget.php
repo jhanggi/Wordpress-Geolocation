@@ -50,7 +50,7 @@ class WP_Geolocation_Widget extends WP_Simple_Widget {
 			} elseif ($term_enabled && $disp == 'categories') {
 				geolocation_map_all_terms('category', $options);
 			} else {
-				geolocation_map_all($options);
+				geolocation_map_all_posts($options);
 			}
 		}
 	}
