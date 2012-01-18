@@ -62,6 +62,7 @@ function default_settings() {
 }
 
 function geolocation_enqueue_scripts($load_admin = false) {
+	wp_enqueue_style( 'geolocation_style', esc_url(plugins_url(PLUGIN_LOCATION.'/style.css')));
 	wp_enqueue_script('google_maps', "http://maps.google.com/maps/api/js?sensor=false");
 	wp_enqueue_script('geolocation', plugins_url(PLUGIN_LOCATION.'/js/map.js'));
 	if ($load_admin) wp_enqueue_script('geolocation_admin', plugins_url(PLUGIN_LOCATION.'/js/admin.js'));

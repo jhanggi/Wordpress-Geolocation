@@ -6,6 +6,7 @@ add_action('admin_menu', 'geolocation_add_custom_box');
 add_action('save_post', 'geolocation_save_postdata');
 
 require_once('admin/term_edit.php');
+require_once('admin/listings.php');
 
 function geolocation_inner_custom_box() {
 	echo '<input type="hidden" id="geolocation_nonce" name="geolocation_nonce" value="' . 

@@ -14,7 +14,6 @@ function add_geo_support() {
 			echo add_bing_maps($posts);
 			break;
 	}
-	wp_enqueue_style( 'geolocation_style', esc_url(plugins_url(PLUGIN_LOCATION.'/style.css')));
 }
 
 function geo_has_shortcode($content) {
